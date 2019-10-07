@@ -55,7 +55,7 @@ def get_notes():
 
 def prepare_sequences(notes, n_vocab):
     """ Prepare the sequences used by the Neural Network """
-    sequence_length = 200
+    sequence_length = 150
 
     # get all pitch names
     pitchnames = sorted(set(item for item in notes))
@@ -88,14 +88,14 @@ def create_network(network_input, n_vocab):
     """ create the structure of the neural network """
     model = Sequential()
     model.add(LSTM(
-        512,
+        256,
         input_shape=(network_input.shape[1], network_input.shape[2]),
         return_sequences=True
     ))
     model.add(Dropout(0.3))
-    model.add(LSTM(512, return_sequences=True))
+    model.add(LSTM(256, return_sequences=True))
     model.add(Dropout(0.3))
-    model.add(LSTM(512))
+    model.add(LSTM(256))
     model.add(Dense(256))
     model.add(Dropout(0.3))
     model.add(Dense(n_vocab))
